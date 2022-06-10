@@ -16,8 +16,6 @@ public class TodoAdd extends HttpServlet {
 		System.out.println("할일 추가 기능 시작");
 		
 		
-		
-		
 		// 전달 받은 값을 꺼낸다 
 		request.setCharacterEncoding("UTF-8");
 		
