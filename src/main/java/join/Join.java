@@ -36,8 +36,7 @@ public class Join extends HttpServlet {
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc.mariadb://localhost:3306/todolist?user=root&password=1234");
-			
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/todolist?user=root&password=1234");
 			String sql = "INSERT INTO member_info(memberID,memberPW,name,joinDate) VALUES(?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
