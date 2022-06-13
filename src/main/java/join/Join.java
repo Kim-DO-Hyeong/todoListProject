@@ -51,15 +51,9 @@ public class Join extends HttpServlet {
 			// 회원 가입 성공 시그널을 보낸다 
 			// 생략 가능
 			
-			boolean joinResult = count ==1 ;
-			if(joinResult) {
-				// 회원 가입 성공 시그널을 보낸다 
-				response.setStatus(HttpServletResponse.SC_OK);
-			}else {
-				response.setStatus(HttpServletResponse.SC_CONFLICT);
-			}
+			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_CONFLICT);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
