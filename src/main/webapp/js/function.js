@@ -33,7 +33,7 @@ function isCorrectPw(pw) {
 	
 	let regExp =/^(?=.*[a-z])(?=.*\d)[A-Za-z\d]+$/;
 	if(!regExp.test(pw)){
-		alert("이메일 형식이 아닙니다");
+		alert("비밀번호 형식이 아닙니다");
 		return false;
 	}
 	return true;
