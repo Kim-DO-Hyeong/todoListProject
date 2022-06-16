@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.DatabaseManager;
+
 @WebServlet("/join")
 public class Join extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,11 +37,11 @@ public class Join extends HttpServlet {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/todolist?user=root&password=1234");
+			
+			conn = DatabaseManager.getConnection();
 			String sql = "INSERT INTO member_info(memberID,memberPW,name,joinDate) VALUES(?,?,?,?)";
 			
-			pstmt = conn.prepareStatement(sql);
+			pstmt = DatabaseManager.getPreparedStatment(conn, sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
 			pstmt.setString(3, name);
@@ -54,23 +56,9 @@ public class Join extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_CONFLICT);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			try {
-				if(conn !=null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DatabaseManager.closePreparedStatment(pstmt);
+			DatabaseManager.closeConnection(conn);
 		}
 		
 		
